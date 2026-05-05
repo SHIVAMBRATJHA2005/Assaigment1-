@@ -1,1 +1,48 @@
+import java.util.*;
 
+public class CyclicSubstringMaxSum {
+
+    public static int maxCyclicUniqueSum(String s) {
+
+        int n = s.length();
+
+        // Circular handling
+        String t = s + s;
+
+        int[] freq = new int[26];
+
+        int left = 0;
+        int currentSum = 0;
+        int maxSum = 0;
+
+        for (int right = 0; right < 2 * n; right++) {
+
+            int r = t.charAt(right) - 'a';
+
+            freq[r]++;
+            currentSum += (r + 1);
+
+            // Shrink if duplicate OR size > n
+            while (freq[r] > 1 || (right - left + 1 > n)) {
+
+                int l = t.charAt(left) - 'a';
+
+                freq[l]--;
+                currentSum -= (l + 1);
+
+                left++;
+            }
+
+            maxSum = Math.max(maxSum, currentSum);
+        }
+
+        return maxSum;
+    }
+
+    public static void main(String[] args) {
+
+        String s = "abca";
+
+        System.out.println(maxCyclicUniqueSum(s));
+    }
+}
