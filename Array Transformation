@@ -1,0 +1,44 @@
+import java.util.*;
+
+public class EqualArrayOperations {
+
+    public static long minOperations(int[] A, int K) {
+        int n = A.length;
+
+        
+        if (n == 1) return 0;
+
+        int base = A[0];
+
+        List<Integer> normalized = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+
+      
+            if ((A[i] - base) % K != 0) {
+                return -1;
+            }
+
+            normalized.add((A[i] - base) / K);
+        }
+
+        Collections.sort(normalized);
+
+        int median = normalized.get(n / 2);
+
+        long operations = 0;
+
+        for (int x : normalized) {
+            operations += Math.abs(x - median);
+        }
+
+        return operations;
+    }
+
+    public static void main(String[] args) {
+        int[] A = {4, 7, 10};
+        int K = 3;
+
+        System.out.println(minOperations(A, K)); // Output: 2
+    }
+}
