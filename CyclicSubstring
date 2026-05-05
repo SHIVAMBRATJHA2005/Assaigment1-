@@ -6,7 +6,7 @@ public class CyclicSubstringMaxSum {
 
         int n = s.length();
 
-        // Circular handling
+        
         String t = s + s;
 
         int[] freq = new int[26];
@@ -22,7 +22,7 @@ public class CyclicSubstringMaxSum {
             freq[r]++;
             currentSum += (r + 1);
 
-            // Shrink if duplicate OR size > n
+            
             while (freq[r] > 1 || (right - left + 1 > n)) {
 
                 int l = t.charAt(left) - 'a';
